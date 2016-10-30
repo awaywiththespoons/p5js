@@ -1,10 +1,19 @@
- var textA = 12;
- var textB = 800;
- var textC = 12;
+ //sketch inspired by John Madea's type tap write http://www.maedastudio.com/2004/rbooks2k/ttw.html
+ //Becca Rose 2016
 
+ //A
+ var textA = 12;
+
+ //B
+ var textB = 800;
  var angleA = .25;
  var widthB = 0;
  var new_widthB;
+
+ //C
+ var randC;
+ var randC_w;
+ var randC_h;
 
  function setup() {
    createCanvas(600, 600);
@@ -32,32 +41,35 @@
 
      // B B B B B B B B 
      else if (keyCode == 098) {
-       if (widthB < width) {
+       //left to right
+       if (widthB < 600) {
          textSize(textB);
          text("b", widthB, height);
-         widthB += 5;
+         widthB += 8;
          console.log("old w B = " + widthB);
        }
-
-       if (widthB >= width) {
+       //right to left
+       if (widthB >= 600) {
          textSize(textB);
          text("b", new_widthB, height);
-         new_widthB -= 5;
+         new_widthB -= 8;
          console.log("new wb = " + new_widthB);
-         //but if new width possition is 0 go to first loop
-         if (new_widthB === 0) {
+         // sorting it out
+         if (new_widthB <= 8) {
            widthB = 0;
+           new_widthB = 600;
          }
        }
      }
      // C
      else if (keyCode == 099) {
 
+       randC = random(12, 800);
+       randC_w = random(0, width);
+       randC_h = random(0, height);
+       textSize(randC);
+       text("c", randC_w, randC_h);
 
-       textSize(textC);
-       text("c", width / 2, height / 2);
-       textC++;
-       console.log(textC);
      }
    }
 
