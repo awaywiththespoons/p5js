@@ -4,10 +4,6 @@
 
 // this kind of evelved into a random book cover generator
 
-// next 
-// : the bok name does not work until 2nd interation on "more books"
-// : I am not sure how to start with a book name
-// : add more images to data set
 
 var img = [];
 
@@ -19,7 +15,7 @@ var randISBN2;
 var imageSnapButton
 var book;
 var bookStart;
-var textW;
+var textW = 0;
 
 function preload() {
   // load images
@@ -48,30 +44,33 @@ function draw() {
   imageSnap();
 }
 
+/////////////////////////
 //find the JSON data page
 function newBook() {
   randISBN1 = ~~random(256);
   randISBN2 = ~~random(256);
   loadJSON('http://openlibrary.org/api/get?key=/b/OL1' + randISBN1 + randISBN2 + 'M', gotData);
-
+  println("textW =  " + textW);
 }
 
-// pinpoint the data I want to make the image titles
+///////////////////////
+//make the image titles
 function gotData(data) {
+  println("textW =  " + textW);
   book = data.result.title;
   textW = textWidth(book);
   println("book = " + book);
   println("textW =  " + textW);
-  fill(20, 255, 70, 125)
-  rect(38, 80 - 32, textW + 2, 39);
-  fill(0);
-  textSize(35);
-  text(book, 40, 80);
-  println("textW end of gotData =  " + textW);
 
+    fill(20, 255, 70, 125)
+    rect(38, 80 - 32, textW + 2, 39);
+    fill(0);
+    textSize(35);
+    text(book, 40, 80);
 }
 
-//function to make those imaages yeah.
+////////////////////////////////
+//function to make those imaages
 function imageSnap() {
   background(255);
   //image randoms
