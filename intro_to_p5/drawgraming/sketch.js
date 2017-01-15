@@ -31,18 +31,16 @@ function setup() {
   noLoop();
   imageMode(CENTER);
   noStroke();
-
+  textSize(35);
 
   // create button
   imageSnapButton = createButton('- M O R E -');
   imageSnapButton.position(40, 20);
   imageSnapButton.mousePressed(imageSnap);
 
-}
-
-function draw() {
   imageSnap();
 }
+
 
 /////////////////////////
 //find the JSON data page
@@ -56,17 +54,29 @@ function newBook() {
 ///////////////////////
 //make the image titles
 function gotData(data) {
-  println("textW =  " + textW);
   book = data.result.title;
-  textW = textWidth(book);
   println("book = " + book);
   println("textW =  " + textW);
 
+  textW = textWidth(book);
+
+  if (book.length > 48) {
+    var bookStart = book.substring(0, 48);
+    var bookEnd = book.substring(49, book.length);
+    fill(20, 255, 70, 125)
+    rect(38, 80 - 32, textWidth(bookStart) + 2, 39);
+    rect(38, 120 - 32, textWidth(bookEnd) + 2, 39);
+    fill(0);
+    text(bookStart, 40, 80);
+    text("-", 40, textWidth(bookStart));
+    text(bookEnd, 40, 120);
+
+  } else {
     fill(20, 255, 70, 125)
     rect(38, 80 - 32, textW + 2, 39);
     fill(0);
-    textSize(35);
     text(book, 40, 80);
+  }
 }
 
 ////////////////////////////////
@@ -83,4 +93,5 @@ function imageSnap() {
   image(img[rand2], width / 2, (height / 2) - 100, imgW, imgH);
   image(img[rand1], (width / 2) + 200, (height / 2) + 30, imgW, imgH);
   newBook();
+
 }
