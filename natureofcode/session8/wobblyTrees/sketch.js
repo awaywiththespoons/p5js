@@ -9,12 +9,13 @@ var angle;
 function setup() {
   createCanvas(400, 400);
   stroke(0);
+  noLoop();
 }
 
 function draw() {
-
+  angle = random(PI / 16, PI / 2);
   background(19, 200, 60);
-  angle = map(mouseX, 0, width, 0, PI / 2);
+
   //nf(num, left unit, right unit)
   println("angle = " + nf(angle, 1, 3));
 
@@ -24,44 +25,37 @@ function draw() {
   translate(width / 2, height);
 
   //call function
-  branch(120, 1);
+  branch(120);
 
 }
 
 
 //this will draw an individual branch
 //generation changes the thickess of line each time
-function branch(length, generation) {
-  
-  strokeWeight(map(generation, 4, 10, 10, 4));
+function branch(length) {
+
   //draw a sinle line
   line(0, 0, 0, -length);
   // move line to end of the single line
   translate(0, -length);
   //shrink the line
-  length *= 0.66;
-
-  generation++;
+  length *= random(0.6, 0.7);
 
   //now for getting fractaul
   if (length > 2) {
 
-    //log where you push the whole thing
-    push();
-    rotate(angle);
-    branch(length, generation)
-      //pop out of the log
-    pop();
+    //get a random number to make n branches 
+    //floor function makes intergers only
 
-    //back to the start (pre push) repeat for other side
-    //push again
-    push();
-    rotate(-angle);
-    branch(length, generation)
-      //pop out again
-    pop();
+    var n = floor(random(1, 5));
+    for (var i = 0; i < n; i++) {
+      //log where you push the whole thing
+      push();
+      rotate(random(-PI / 2, PI / 2));
+      branch(length)
+        //pop out of the log
+      pop();
+    }
+
   }
-
-
-
 }
