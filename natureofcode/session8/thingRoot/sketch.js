@@ -5,16 +5,28 @@
 
 //define angle
 var angle;
+var imgW;
+var imgH;
+var img;
+
+function preload() {
+  img = loadImage("18.png");
+  println("errr yup should be loaded");
+}
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(600, 600);
   stroke(0);
+
   noLoop();
+
+  imageMode(CENTER);
 }
 
 function draw() {
   angle = random(PI / 16, PI / 2);
   background(19, 200, 60);
+
 
   //nf(num, left unit, right unit)
   println("angle = " + nf(angle, 1, 3));
@@ -22,11 +34,17 @@ function draw() {
 
   //start from the bottom, center of the canvas (using translate as not to complicate things by using X, Y coordinates
   //this will be a global tranlates to all function as it is in the draw and called before the function
-  translate(width / 2, height/4);
+
+
+  translate(width / 2, height / 4);
+
+  image(img, 0, 0, imgW, imgH);
   rotate(PI);
+
 
   //call function
   branch(120);
+
 
 }
 
@@ -36,6 +54,7 @@ function draw() {
 function branch(length) {
 
   //draw a sinle line
+  stroke()
   line(0, 0, 0, -length);
   // move line to end of the single line
   translate(0, -length);
@@ -43,7 +62,7 @@ function branch(length) {
   length *= random(0.6, 0.7);
 
   //now for getting fractaul
-  if (length > 2) {
+  if (length > 6) {
 
     //get a random number to make n branches 
     //floor function makes intergers only
